@@ -30,25 +30,12 @@ module.exports = (client, logger, config, commands) => {
                     }
             }
             // check in loaded commands
-            
             if (commands.has(message.content))
-            {
-                commands.get(message.content.replace(config.Prefix,'')).prefixrun(client, message, " args " ,logger);
+            { commands.get(message.content.replace(config.Prefix,'')).prefixrun(client, message, " args " ,logger);
             } else
             message.reply(config.Responses.CommandNotFound);
         }
     });
-
-    
-    client.on('interactionCreate', async (interaction) => {
-         logger.Discord.info(`Interaction created ${interaction.author.username}`);
-    });
-    
-    
-
-
-    
-    
     process.on('SIGINT', () => {
         logger.Discord.info("Logged out");
         client.destroy();
