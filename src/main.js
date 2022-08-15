@@ -23,36 +23,22 @@ const fs = require("fs");
 const path = require("path");
 const commands = new Map();
 
-let CDIR = path.join(__dirname, "..", "src/commands");
+let CDIR = path.join(__dirname, "..", "src/plugins");
 fs.readdir(CDIR, async (err, files) => {
   if (err)
-  {
     logger.App.error(err);
-  }
-  else
-  {
-    files.forEach( async(file) => {
-      let cmd = require(CDIR + "/" + file);
-      if (!commands.has(cmd.Command))
-        {
-          commands.set(cmd.Command, cmd);
-        } else {
-          logger.App.warn("Failed to load command " + cmd.Command + " a command with that name already exists");
-        }
-        cmd.onload();
-        commands.set(cmd.Command, cmd);
-        cmd.Aliases.forEach( async (aliase) => {
-        if (!commands.has(aliase))
-        {
-          commands.set(aliase, cmd);
-        } else {
-          logger.App.warn("Skiping aliase " + aliase + " a aliase with that name already exists");
-        }
-      });
-      logger.App.info("Loaded command " + cmd.Command + ` (${cmd.Aliases.join(", ")})`);  
-      
-    });
-  }
+  else files.forEach( async(file) => {
+    let cmd = require(CDIR + "/" + file);
+    if (!commands.has(cmd.Command))
+    {
+      commands.set(cmd.Command, cmd);
+      cmd.api.CommandObject = cmd;
+      cmd.onload();
+    }
+    else {
+      logger.App.info("Failed loading plugin");
+    }
+  });
 });
 
 
