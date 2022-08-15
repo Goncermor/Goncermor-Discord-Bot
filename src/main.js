@@ -39,6 +39,7 @@ fs.readdir(CDIR, async (err, files) => {
         } else {
           logger.App.warn("Failed to load command " + cmd.Command + " a command with that name already exists");
         }
+        cmd.onload();
         commands.set(cmd.Command, cmd);
         cmd.Aliases.forEach( async (aliase) => {
         if (!commands.has(aliase))
