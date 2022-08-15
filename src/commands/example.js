@@ -6,6 +6,7 @@
 
 // Command plugin example
 
+const api = require("../src/api.js");
 module.exports = {
     Command: "example",                 // the command
     Aliases: ["ex", "expl"],            // aliases for the command (alternative commands)
@@ -17,12 +18,19 @@ module.exports = {
         Required: true                  // if the value is required
     },
 
-    prefixrun: async (client, message, args) => {
+    onload: () => {
+        // place here the code for the command with prefix
+        api.Logger.info("Example plugin v1.1");
+    },
+    onunload: () => {
+        // place here the code for the command with prefix
+        api.Logger.info("Unloading example plugin v1.1");
+    },
+    prefix: async (message, args) => {
         // place here the code for the command with prefix
         message.reply("this is an example");
     },
-
-    slashrun: async (client, interaction, args) => {
+    slash: async (interaction, args) => {
         // place here the code for the command with slash
         interaction.reply("this is an example");
     },
