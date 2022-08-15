@@ -10,7 +10,7 @@ const { Collection, Client, MessageEmbed ,  GatewayIntentBits } = require("disco
 const client = new Client(
     { 
         intents: [
-            GatewayIntentBits.Guilds, 
+            GatewayIntentBits.Guilds,
             GatewayIntentBits.MessageContent,
             GatewayIntentBits.GuildMessages,
             GatewayIntentBits.DirectMessages,
