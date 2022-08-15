@@ -1,4 +1,4 @@
-module.exports = (client, logger, config) => {
+module.exports = (client, logger, config, commands) => {
     if (process.argv.includes("--debug")){client.on('debug', (debug) => {logger.Discord.debug(debug)});logger.App.info("Loaded DEBUG event");}
     client.on('error', (e) => {logger.Discord.error(e.message)});
     client.on('warn', (info) => {logger.Discord.warn(info)});
@@ -16,10 +16,14 @@ module.exports = (client, logger, config) => {
     client.on('messageCreate', async (message) => {
         if (message.author.bot) return;
         logger.Discord.info(`Message created ${message.author.username}#${message.author.discriminator} -> ${message.channelId}`);
-        if (message.channel.type == "dm")
+        if (message.content.startsWith('!'))
         {
-            logger.Discord.info("DM");
-            message.reply("ike");
+            if (commands.has(message.content))
+            {
+                commands.get(message.content.replace('!','')).prefixrun(client, message);
+            } else {
+                message.reply("Command not found");
+            }
         }
     });
 

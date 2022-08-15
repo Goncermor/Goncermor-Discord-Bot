@@ -11,8 +11,10 @@ const client = new Client(
     { 
         intents: [
             GatewayIntentBits.Guilds, 
+            GatewayIntentBits.MessageContent,
             GatewayIntentBits.GuildMessages,
-            GatewayIntentBits.DirectMessages
+            GatewayIntentBits.DirectMessages,
+            
         ]
     }
 );
@@ -53,5 +55,5 @@ fs.readdir(CDIR, async (err, files) => {
 });
 
 
-require("./events.js")(client, logger, config);
+require("./events.js")(client, logger, config, commands);
 client.login(config.Token);
