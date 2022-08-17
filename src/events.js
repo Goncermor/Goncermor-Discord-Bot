@@ -1,4 +1,4 @@
-module.exports = (client, logger, config, commands) => {
+module.exports = (client, logger, config) => {
     // activates discord.js debug event if the program is started with --debug flag
     if (process.argv.includes("--debug")){client.on('debug', (debug) => {logger.Discord.debug(debug)});logger.App.info("Loaded DEBUG event");}
     client.on('error', (e) => {logger.Discord.error(e.message)});
