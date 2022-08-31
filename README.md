@@ -1,4 +1,6 @@
 # Goncermor-Discord-Bot
+## ⚠️ Not finished
+
 ### Discord bot written in Typescript with support for custom made plugins
 
 
